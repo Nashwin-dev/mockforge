@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MockForge</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <h1>MockForge</h1>
+        <p id="examMeta">Local Mock Test Portal</p>
+      </div>
+      <div class="timer-card" id="timerCard" aria-live="polite">
+        <span>Time Left</span>
+        <strong id="timer">00:00</strong>
+      </div>
+    </header>
+
+    <main>
+      <section class="setup-panel" id="setupPanel">
+        <div class="setup-copy">
+          <p class="eyebrow">Question Bank Ready</p>
+          <h2>Configure your mock test</h2>
+          <p>Choose duration, question count, and randomization before starting. Progress is saved locally in your browser during the exam.</p>
+        </div>
+
+        <form id="examSetupForm" class="setup-form">
+          <label>
+            Duration in minutes
+            <input type="number" id="durationInput" min="1" max="300" value="30" required>
+          </label>
+
+          <label>
+            Question selection
+            <select id="questionMode">
+              <option value="all">Use all questions</option>
+              <option value="fixed">Random fixed count</option>
+            </select>
+          </label>
+
+          <label id="questionCountWrap" class="is-hidden">
+            Number of questions
+            <input type="number" id="questionCountInput" min="1" value="10">
+          </label>
+
+          <div class="option-row">
+            <label class="check-label">
+              <input type="checkbox" id="randomQuestionOrder" checked>
+              Random question order
+            </label>
+            <label class="check-label">
+              <input type="checkbox" id="randomOptionOrder" checked>
+              Random option order
+            </label>
+          </div>
+
+          <button class="primary-btn" type="submit">Start Exam</button>
+        </form>
+      </section>
+
+      <section class="exam-layout is-hidden" id="examLayout">
+        <aside class="question-sidebar" aria-label="Question navigation">
+          <div class="sidebar-title">
+            <span>Questions</span>
+            <small id="answeredCount">0 answered</small>
+          </div>
+          <div class="question-grid" id="questionGrid"></div>
+        </aside>
+
+        <section class="question-panel">
+          <div class="question-card">
+            <div class="question-toolbar">
+              <div>
+                <p class="eyebrow" id="questionCategory">Category</p>
+                <h2 id="questionNumber">Question 1</h2>
+              </div>
+              <span class="difficulty" id="questionDifficulty">Medium</span>
+            </div>
+
+            <p class="question-text" id="questionText"></p>
+            <div class="options-list" id="optionsList"></div>
+          </div>
+
+          <nav class="bottom-nav" aria-label="Exam controls">
+            <button type="button" class="secondary-btn" id="prevBtn">Previous</button>
+            <button type="button" class="secondary-btn" id="clearBtn">Clear Response</button>
+            <button type="button" class="secondary-btn" id="nextBtn">Next</button>
+            <button type="button" class="submit-btn" id="submitBtn">Submit Exam</button>
+          </nav>
+        </section>
+      </section>
+
+      <section class="result-panel is-hidden" id="resultPanel">
+        <div class="result-header">
+          <div>
+            <p class="eyebrow">Exam Submitted</p>
+            <h2>Your Result</h2>
+          </div>
+          <button type="button" class="secondary-btn" id="newExamBtn">New Exam</button>
+        </div>
+
+        <div class="score-grid" id="scoreGrid"></div>
+
+        <h3>Question Review</h3>
+        <div class="review-list" id="reviewList"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
